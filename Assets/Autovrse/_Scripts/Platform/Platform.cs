@@ -23,7 +23,11 @@ namespace Autovrse
             if (player != null)
             {
                 if (IsFinalPlatform && !_didPlayerVisitedThisPlatform)
+                {
                     PlatformSpawner.OnFinalPlatformReached?.Invoke();
+                    // add bullets to gun for reaching final point
+                    player.PlayerWeaponController.CurrentWeapon.OnAddBullets(5);
+                }
                 _cachedPlayerReference = player;
                 _didPlayerVisitedThisPlatform = true;
             }

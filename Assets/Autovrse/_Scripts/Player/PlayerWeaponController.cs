@@ -5,6 +5,7 @@ namespace Autovrse
     {
         private Player _player;
         [SerializeField] private Weapon _currentWeapon = null;
+        public Weapon CurrentWeapon => _currentWeapon;
         [SerializeField] private Transform _weaponHolderParent;
         private Transform _mainCamTransform;
         [SerializeField] private float xRotationOffset;

@@ -6,5 +6,7 @@ namespace Autovrse
         WeaponData WeaponData { get; }
         void OnFireStart();
         void OnFireStop();
+
+        void OnAddBullets(int bulletCount);
     }
 }

@@ -150,6 +150,12 @@ namespace Autovrse
             _canShoot = true;
 
         }
+
+        public void OnAddBullets(int bulletCount)
+        {
+            _bulletsLeft += bulletCount;
+            _bulletCountText.text = _bulletsLeft.ToString();
+        }
     }
 
 }
