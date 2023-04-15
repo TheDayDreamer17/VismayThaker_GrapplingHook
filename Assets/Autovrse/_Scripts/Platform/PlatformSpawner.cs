@@ -14,6 +14,8 @@ namespace Autovrse
         // this is maximum distance from previous Platform where new platform will be spawned
         [SerializeField] private float _platformSpawnMaxDistance = 16;
 
+        [SerializeField] private float _platformMinSeperationDistance = 25;
+
         // this is minimum and maximum amount of platforms spawned at a time
         [SerializeField] private Vector2Int _platformsSpawnCount = new Vector2Int(3, 6);
         private Vector3 _spawnPosition;
@@ -116,8 +118,8 @@ namespace Autovrse
                 _spawnPosition = _lastGeneratedPlatformPosition + Util.GetRandomPositionInTorus(_platformSpawnMinDistance, _platformSpawnMaxDistance);
 
             _spawnPosition.y = transform.position.y;
-            if (_platformPool.Exists(platform => !platform.IsHidden && Vector3.Distance(platform.transform.position, _spawnPosition) < 10) ||
-            (!_startingPlatform.IsHidden && Vector3.Distance(_startingPlatform.transform.position, _spawnPosition) < 10))
+            if (_platformPool.Exists(platform => !platform.IsHidden && Vector3.Distance(platform.transform.position, _spawnPosition) < _platformMinSeperationDistance) ||
+            (!_startingPlatform.IsHidden && Vector3.Distance(_startingPlatform.transform.position, _spawnPosition) < _platformMinSeperationDistance))
                 GetNewPosition();
         }
 
