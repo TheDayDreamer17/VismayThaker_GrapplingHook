@@ -21,6 +21,7 @@ namespace Autovrse
         [SerializeField] private float _jumpDistanceValue = 0.2f;
         [SerializeField] private float _playerHeight = 2;
         private bool _isInAir = false;
+        private PlayerMovementState _playerMovementState = PlayerMovementState.Walking;
 
         private void Awake()
         {
@@ -53,6 +54,10 @@ namespace Autovrse
 
         }
 
+        public void ModifyPlayerMovementState(PlayerMovementState playerMovementState)
+        {
+            _playerMovementState = playerMovementState;
+        }
         private void OnEnable()
         {
             // Subscribe to input managet events
@@ -111,5 +116,10 @@ namespace Autovrse
             }
         }
 
+    }
+
+    public enum PlayerMovementState
+    {
+        Walking, Swinging
     }
 }

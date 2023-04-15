@@ -42,7 +42,6 @@ namespace Autovrse
                     yield break;
                 if (_readyToShoot && !_reloading)
                 {
-                    UpdateWeaponProperties();
                     Shoot();
                 }
                 yield return new WaitForSeconds(_weaponData.TimeBetweenShooting);
@@ -52,7 +51,7 @@ namespace Autovrse
             yield return null;
         }
 
-        private void UpdateWeaponProperties()
+        protected virtual void UpdateWeaponProperties()
         {
             _readyToShoot = false;
             _bulletsLeft--;
@@ -62,7 +61,7 @@ namespace Autovrse
 
         protected virtual void Shoot()
         {
-
+            UpdateWeaponProperties();
             GameObject bullet = Instantiate(_weaponData.BulletPrefab, _shootPoint.transform.position, _shootPoint.transform.rotation);
             Vector3 direction = _shootPoint.forward;
             bullet.GetComponent<Rigidbody>().AddForce(direction * 10 * _weaponData.Range, ForceMode.Impulse);

@@ -81,7 +81,6 @@ namespace Autovrse
         }
         private void OnWeaponFireStopped(InputAction.CallbackContext obj)
         {
-            Debug.Log("OnWeaponFireStopped");
             GameEvents.NotifyOnWeaponFireStopped();
         }
 

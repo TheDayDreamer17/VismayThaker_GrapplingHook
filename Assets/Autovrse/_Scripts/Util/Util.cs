@@ -9,9 +9,9 @@ namespace Autovrse
 {
     public static class Util
     {
-        public static Vector3 GetRandomVector3(float min, float max)
+        public static Vector3 GetRandomVector3(float min, float max, bool x = true, bool y = true, bool z = true)
         {
-            return new Vector3(Random.Range(min, max), Random.Range(min, max), Random.Range(min, max));
+            return new Vector3(x ? Random.Range(min, max) : 0, y ? Random.Range(min, max) : 0, z ? Random.Range(min, max) : 0);
         }
 
         public static void ToggleCollidersArray(Collider[] colliders, bool enabled)
@@ -70,6 +70,28 @@ namespace Autovrse
                 objectTransform.RotateAround(objectTransform.position, axis, angle);
                 yield return new WaitForSeconds(0.1f);
             }
+        }
+        public static Vector3 GetRandomPositionInTorus(float innerRadius, float outerRadius)
+        {
+            float wallRadius = (outerRadius - innerRadius) * 0.5f;
+            float ringRadius = wallRadius + innerRadius; // ( ( max - min ) / 2 ) + min
+            // get a random angle around the ring
+            float rndAngle = Random.value * 6.28f; // use radians, saves converting degrees to radians
+
+            // determine position
+            float cX = Mathf.Sin(rndAngle);
+            float cZ = Mathf.Cos(rndAngle);
+
+            Vector3 ringPos = new Vector3(cX, 0, cZ);
+            ringPos *= ringRadius;
+
+            // At any point around the center of the ring
+            // a sphere of radius the same as the wallRadius will fit exactly into the torus.
+            // Simply get a random point in a sphere of radius wallRadius,
+            // then add that to the random center point
+            Vector3 sPos = Random.insideUnitSphere * wallRadius;
+
+            return (ringPos + sPos);
         }
     }
 }
