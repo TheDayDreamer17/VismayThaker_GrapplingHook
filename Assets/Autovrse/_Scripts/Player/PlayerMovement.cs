@@ -9,12 +9,23 @@ namespace Autovrse
     {
         Player _player;
         Rigidbody _rb;
+
+        [SerializeField] private ParticleSystem _hitParticleEfect;
+        [SerializeField] private float _minHitVelocity = 10;
+        private FpsCamera _fpsCamera;
         [Header("Movement")]
+
+        [SerializeField] private Transform _playerOrientation;
         [SerializeField] private float _movementSpeed = 5;
         [SerializeField] private float _dragValueOnGround = 5f;
+        [SerializeField] private float _gravitationalExtraForce = 5f;
         private Vector2 _moveInput;
         private Vector3 _moveDirection;
+        [Header("Swinging")]
+        [SerializeField] private float _dragValueWhileSwinging = 0;
+        [SerializeField] private float _swingSpeed = 5;
         [Header("Jump")]
+        [SerializeField] private float _dragValueInAir = 0.2f;
         [SerializeField] private float _upwardForce = 5;
         [SerializeField] private float _airMultiplier = 5;
         [SerializeField] private LayerMask _ground;
@@ -22,27 +33,34 @@ namespace Autovrse
         [SerializeField] private float _playerHeight = 2;
         private bool _isInAir = false;
         private PlayerMovementState _playerMovementState = PlayerMovementState.Walking;
-
+        private float _playerMovementSpeed = 0;
         private void Awake()
         {
             _player = GetComponent<Player>();
             _rb = GetComponent<Rigidbody>();
             _rb.freezeRotation = true;
+            _playerMovementSpeed = _movementSpeed;
+            _fpsCamera = Camera.main.GetComponent<FpsCamera>();
         }
         private void Update()
         {
             if (_player.IsUsingUI)
                 return;
             _isInAir = !Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + _jumpDistanceValue, _ground);
-            Debug.DrawRay(transform.position, Vector3.down * (_playerHeight * 0.5f + _jumpDistanceValue), Color.green);
-            if (!_isInAir)
+            // Debug.DrawRay(transform.position, Vector3.down * (_playerHeight * 0.5f + _jumpDistanceValue), Color.green);
+            if (_playerMovementState == PlayerMovementState.Swinging)
+            {
+                _rb.drag = _dragValueWhileSwinging;
+            }
+            else if (!_isInAir)
             {
                 _rb.drag = _dragValueOnGround;
             }
             else
-                _rb.drag = 0;
+                _rb.drag = _dragValueInAir;
 
-            ControlSpeed();
+            if (_playerMovementState == PlayerMovementState.Walking)
+                ControlSpeed();
         }
 
         public void ModifyJumpParameter(float jumpValue, float duration)
@@ -57,6 +75,17 @@ namespace Autovrse
         public void ModifyPlayerMovementState(PlayerMovementState playerMovementState)
         {
             _playerMovementState = playerMovementState;
+            switch (playerMovementState)
+            {
+                case PlayerMovementState.Walking:
+                    _playerMovementSpeed = _movementSpeed;
+                    break;
+                case PlayerMovementState.Swinging:
+                    _playerMovementSpeed = _swingSpeed;
+
+                    break;
+
+            }
         }
         private void OnEnable()
         {
@@ -73,17 +102,29 @@ namespace Autovrse
 
         private void FixedUpdate()
         {
+            AddExtraGravityForce();
             CalculateMovement();
+        }
+
+        private void AddExtraGravityForce()
+        {
+            if (_isInAir && _playerMovementState == PlayerMovementState.Walking)
+                _rb.AddForce(-transform.up * _gravitationalExtraForce * Time.deltaTime, ForceMode.VelocityChange);
         }
 
         private void CalculateMovement()
         {
-            // Changing position and rotation based on input
-            _moveDirection = transform.forward * _moveInput.y + transform.right * _moveInput.x;
+            // Changing position based on input
+            _moveDirection = _playerOrientation.forward * _moveInput.y + _playerOrientation.right * _moveInput.x;
+
             if (!_isInAir)
-                _rb.AddForce(_moveDirection.normalized * _movementSpeed, ForceMode.Force);
+            {
+                _rb.AddForce(_moveDirection.normalized * _playerMovementSpeed * Time.deltaTime);
+            }
             else
-                _rb.AddForce(_moveDirection.normalized * _movementSpeed * _airMultiplier, ForceMode.Force);
+            {
+                _rb.AddForce(_moveDirection.normalized * _playerMovementSpeed * _airMultiplier * Time.deltaTime);
+            }
         }
 
         private void OnMovementActionFired(Vector2 movementData)
@@ -109,10 +150,20 @@ namespace Autovrse
         private void ControlSpeed()
         {
             Vector3 currentVelocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-            if (currentVelocity.magnitude > _movementSpeed)
+            if (currentVelocity.magnitude > _playerMovementSpeed)
             {
-                Vector3 maxVelocity = currentVelocity.normalized * _movementSpeed;
+                Vector3 maxVelocity = currentVelocity.normalized * _playerMovementSpeed;
                 _rb.velocity = new Vector3(maxVelocity.x, _rb.velocity.y, maxVelocity.z);
+            }
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Ground") && _rb.velocity.magnitude > _minHitVelocity)
+            {
+                _hitParticleEfect.transform.position = other.contacts[0].point;
+                _hitParticleEfect.Play();
+                _fpsCamera?.PerformCameraShake();
             }
         }
 

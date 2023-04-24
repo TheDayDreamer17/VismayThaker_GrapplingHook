@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffb2783b39787f4fa22593721ef095a, type: 3}
   m_Name: Grappling Rifle Data
   m_EditorClassIdentifier: 
-  MagazineSize: 30
+  MagazineSize: 600
   BulletPrefab: {fileID: 0}
   DropFrontForce: 3
   DropUpwardForce: 3
   DropTorqueForce: 100
   DamageAmount: 20
   TimeBetweenShooting: 0.15
-  Range: 30
+  Range: 100
   ReloadTime: 1
   AllowButtonHold: 0

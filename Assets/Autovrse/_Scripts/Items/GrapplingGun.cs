@@ -16,13 +16,24 @@ namespace Autovrse
         private Transform _currentGrappledObject = null;
         private SpringJoint _playerSpringJoint;
         private Vector3 _grapplePoint;
+        private float _distanceOfGrapplePointToObject;
+        private Vector3 _grapplePointLocalSpace;
         private float _distanceFromGrapplePoint;
         private bool _drawRope = false;
         private Coroutine _drawLineCoroutine = null;
         private Camera _mainCam;
+        public bool IsGrappling = false;
         private void Start()
         {
             _mainCam = Camera.main;
+        }
+        private void OnEnable()
+        {
+            GameEvents.OnGameRestart += ReloadWeapon;
+        }
+        private void OnDisable()
+        {
+            GameEvents.OnGameRestart -= ReloadWeapon;
         }
         protected override void Shoot()
         {
@@ -42,15 +53,18 @@ namespace Autovrse
                 GetObjectFromHit();
             }
 
+            StartSwinging();
 
+        }
+
+        private void StartSwinging()
+        {
             if (_currentGrappledObject != null)
             {
                 UpdateWeaponProperties();
                 ChangePlayerProperties(true);
-                CreateRope(() =>
-                {
-
-                });
+                CreateRope();
+                IsGrappling = true;
                 _playerSpringJoint = _cachedPlayerReference.GetComponent<SpringJoint>();
                 if (_playerSpringJoint == null)
                     _playerSpringJoint = _cachedPlayerReference.gameObject.AddComponent<SpringJoint>();
@@ -82,6 +96,8 @@ namespace Autovrse
 
             _grapplePoint = _hit.point;
             _currentGrappledObject = _hit.collider.transform;
+            _grapplePointLocalSpace = _currentGrappledObject.InverseTransformPoint(_grapplePoint);
+            _distanceOfGrapplePointToObject = Vector3.Distance(_grapplePoint, _currentGrappledObject.transform.position);
         }
 
         private void CreateRope(Action OnComplete = null)
@@ -93,7 +109,16 @@ namespace Autovrse
         {
             if (_drawRope && _currentGrappledObject != null)
             {
-                transform.LookAt(_grapplePoint);
+                if (Vector3.Distance(_grapplePoint, _currentGrappledObject.transform.position) != _distanceFromGrapplePoint)
+                {
+                    _playerSpringJoint.connectedAnchor = _grapplePoint;
+                    _grapplePoint = _currentGrappledObject.TransformPoint(_grapplePointLocalSpace);
+                }
+                // transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
+                var lookDir = _grapplePoint - _shootPoint.transform.position;
+                var isInFront = Vector3.Dot(lookDir.normalized, _shootPoint.transform.forward) > 0;
+                transform.LookAt(_grapplePoint, isInFront ? Vector3.up : Vector3.down);
+                // transform.LookAt(_grapplePoint);
                 _grappleLine.SetPosition(0, _shootPoint.position);
                 _grappleLine.SetPosition(1, _grapplePoint);
             }
@@ -104,13 +129,14 @@ namespace Autovrse
             _drawRope = true;
             _grappleLine.positionCount = 2;
             Vector3 finalPoint = _shootPoint.position;
+
             while (Vector3.Distance(finalPoint, _grapplePoint) > 0.05f)
             {
                 finalPoint = Vector3.Lerp(finalPoint, _grapplePoint, Time.deltaTime * _ropeSpeed);
                 // TODO rope animation 
                 // finalPoint.y += Mathf.Sin(Time.time * _ropeSpeed * 10);
 
-                transform.LookAt(_grapplePoint);
+                transform.LookAt(new Vector3(transform.position.x, transform.position.y, _grapplePoint.z));
                 _grappleLine.SetPosition(0, _shootPoint.position);
                 _grappleLine.SetPosition(1, finalPoint);
                 yield return null;
@@ -149,6 +175,7 @@ namespace Autovrse
         public override void OnFireStop()
         {
             base.OnFireStop();
+            IsGrappling = false;
             ChangePlayerProperties(false);
             DestroyRope();
             if (_playerSpringJoint != null)

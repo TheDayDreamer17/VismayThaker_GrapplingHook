@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 4000014023668342}
   - component: {fileID: 33000012226537178}
   - component: {fileID: 23000011161797044}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Parking_1B_Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4000014023668342
 Transform:
@@ -93,12 +93,12 @@ GameObject:
   - component: {fileID: 33000013066410308}
   - component: {fileID: 23000011276808686}
   - component: {fileID: 64000011852836014}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Parking_2A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4000012579669490
 Transform:

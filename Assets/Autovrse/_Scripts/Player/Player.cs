@@ -17,16 +17,25 @@ namespace Autovrse
         public float Heath => _health;
         private bool _isUsingUI = false;
         public bool IsUsingUI => _isUsingUI;
+        private Vector3 _initialPosition;
         private void OnEnable()
         {
+            GameEvents.OnGameStart += OnGameStart;
             GameEvents.OnGameRestart += OnGameRestart;
             GameEvents.OnUIStateChanged += OnUIStateChanged;
         }
         private void OnDisable()
         {
+            GameEvents.OnGameStart += OnGameStart;
             GameEvents.OnGameRestart -= OnGameRestart;
             GameEvents.OnUIStateChanged -= OnUIStateChanged;
         }
+
+        private void OnGameStart()
+        {
+            _initialPosition = transform.position;
+        }
+
         private void OnUIStateChanged()
         {
             _isUsingUI = !_isUsingUI;
@@ -59,13 +68,14 @@ namespace Autovrse
             if (_health == 0)
             {
                 //Player is dead
-                GameEvents.NotifyOnPlayerDie();
+                GameEvents.NotifyOnPlayerUnSuccessful();
             }
         }
 
         private void OnGameRestart()
         {
             ModifyHealth(100);
+            transform.position = _initialPosition;
         }
     }
 }

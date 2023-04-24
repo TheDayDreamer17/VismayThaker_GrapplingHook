@@ -44,14 +44,14 @@ namespace Autovrse
 
         private void OnEnable()
         {
-            GameEvents.OnPlayerDie += OnPlayerDie;
+            GameEvents.OnPlayerUnSuccessful += OnPlayerDie;
             GameEvents.OnGameRestart += OnGameRestart;
             OnFinalPlatformReached += GenerateNewPlatforms;
         }
         private void OnDisable()
         {
             GameEvents.OnGameRestart -= OnGameRestart;
-            GameEvents.OnPlayerDie -= OnPlayerDie;
+            GameEvents.OnPlayerUnSuccessful -= OnPlayerDie;
             OnFinalPlatformReached -= GenerateNewPlatforms;
         }
 

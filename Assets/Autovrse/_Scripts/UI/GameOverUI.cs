@@ -18,16 +18,16 @@ namespace Autovrse
         }
         private void OnEnable()
         {
-            GameEvents.OnPlayerDie += OnPlayerDie;
+            GameEvents.OnPlayerUnSuccessful += OnPlayerUnSuccessful;
             _restartBtn.onClick.AddListener(RestartGame);
         }
         private void OnDisable()
         {
-            GameEvents.OnPlayerDie -= OnPlayerDie;
+            GameEvents.OnPlayerUnSuccessful -= OnPlayerUnSuccessful;
             _restartBtn.onClick.RemoveListener(RestartGame);
         }
 
-        private void OnPlayerDie()
+        private void OnPlayerUnSuccessful()
         {
 
             ToggleUI(true);
@@ -35,7 +35,7 @@ namespace Autovrse
         }
         private void ToggleUI(bool isEnabled)
         {
-            GameEvents.OnUIStateChanged();
+            GameEvents.NotifyOnUIStateChanged();
             _canvas.enabled = isEnabled;
             _restartBtn.interactable = isEnabled;
         }

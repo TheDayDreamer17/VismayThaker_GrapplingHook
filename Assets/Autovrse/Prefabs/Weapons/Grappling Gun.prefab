@@ -178,7 +178,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 89ca815f7dbf08341b546776b36f3c46, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -199,9 +199,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -249,13 +247,13 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 15
+    numCapVertices: 15
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_UseWorldSpace: 0
+  m_UseWorldSpace: 1
   m_Loop: 0
 --- !u!1 &4978871389973920820
 GameObject:
@@ -311,8 +309,12 @@ MonoBehaviour:
   _canGrappleLayer:
     serializedVersion: 2
     m_Bits: 128
-  _grappleLine: {fileID: 0}
+  _grappleLine: {fileID: 1881985893564287042}
   _ropeSpeed: 10
+  _minMaxDistanceMultiplier: {x: 0.2, y: 0.6}
+  _dampness: 7
+  _massScale: 4.5
+  _spring: 15
 --- !u!54 &4978871389973920823
 Rigidbody:
   m_ObjectHideFlags: 0

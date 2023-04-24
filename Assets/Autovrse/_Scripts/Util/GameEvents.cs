@@ -42,11 +42,18 @@ namespace Autovrse
             OnWeaponFireStopped?.Invoke();
         }
 
-        // Event to show Game over on player die
-        public static Action OnPlayerDie;
-        public static void NotifyOnPlayerDie()
+        // Event to show Game over on player UnSuccessful
+        public static Action OnPlayerUnSuccessful;
+        public static void NotifyOnPlayerUnSuccessful()
         {
-            OnPlayerDie?.Invoke();
+            OnPlayerUnSuccessful?.Invoke();
+        }
+
+        // Event to show level Successfully completed
+        public static Action OnPlayerSuccessful;
+        public static void NotifyOnPlayerSuccessful()
+        {
+            OnPlayerSuccessful?.Invoke();
         }
 
         // Event to restart Game
@@ -54,6 +61,20 @@ namespace Autovrse
         public static void NotifyOnGameRestart()
         {
             OnGameRestart?.Invoke();
+        }
+
+        // Event to restart Game
+        public static Action OnGameNextLevel;
+        public static void NotifyOnGameNextLevel()
+        {
+            OnGameNextLevel?.Invoke();
+        }
+
+        // Event to Start Level
+        public static Action OnGameStart;
+        public static void NotifyOnGameStart()
+        {
+            OnGameStart?.Invoke();
         }
 
     }
