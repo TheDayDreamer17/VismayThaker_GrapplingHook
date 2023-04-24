@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33000010082585182}
   - component: {fileID: 23000011851332230}
   - component: {fileID: 4811223623093082600}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Emergency_Stairs_1A (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 33000010424502210}
   - component: {fileID: 23000011947760668}
   - component: {fileID: 2172273128629244662}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Emergency_Stairs_1A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 33000010620592634}
   - component: {fileID: 23000012701607040}
   - component: {fileID: 4562249951936788358}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Emergency_Stairs_1A (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4000011619365560}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Emergency_Stairs_1A_x5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 33000013824473326}
   - component: {fileID: 23000010476195810}
   - component: {fileID: 3796002406728245879}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Emergency_Stairs_1A (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 33000013180885534}
   - component: {fileID: 23000011964684846}
   - component: {fileID: 1411929730585930792}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Emergency_Stairs_1A (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

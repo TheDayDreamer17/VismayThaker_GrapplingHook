@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3963610729206263761}
   - component: {fileID: 2733697276898513281}
   - component: {fileID: 1028613970134016701}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,13 +100,13 @@ GameObject:
   - component: {fileID: 8386935206189912216}
   - component: {fileID: 1319126945944533227}
   - component: {fileID: 3859999317959823575}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Web Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8386935206189912216
 RectTransform:
   m_ObjectHideFlags: 0
@@ -364,19 +364,28 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.19202867
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.9898649
+        value: 1.0072463
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -412,7 +421,7 @@ LineRenderer:
     numCornerVertices: 15
     numCapVertices: 15
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     shadowBias: 0.5
     generateLightingData: 0
   m_UseWorldSpace: 1
@@ -428,7 +437,7 @@ GameObject:
   - component: {fileID: 8595729447314371586}
   - component: {fileID: 7606667395994276679}
   - component: {fileID: 4981003669813403716}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +518,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3429330248882262886}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pivoted Web shooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -542,7 +551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4085533830359362131}
   - component: {fileID: 6694149504478047130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Web shooterBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +602,7 @@ GameObject:
   - component: {fileID: 7900346413951449877}
   - component: {fileID: 950577192775354115}
   - component: {fileID: 1510118516478133465}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -720,7 +729,7 @@ MonoBehaviour:
     m_Bits: 128
   _grappleLine: {fileID: 1881985893564287042}
   _ropeSpeed: 10
-  _minMaxDistanceMultiplier: {x: 0.2, y: 0.6}
+  _minMaxDistanceMultiplier: {x: 0.2, y: 0.55}
   _dampness: 7
   _massScale: 4.5
   _spring: 15
@@ -751,7 +760,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a32fba619c176ec4c9164fede9f33ea5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d6508f0b92e84374f919d437d3c862be, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -762,7 +771,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 12.493652
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -848,7 +857,7 @@ GameObject:
   - component: {fileID: 2527171058073556327}
   - component: {fileID: 4598231664564639025}
   - component: {fileID: 2079954421336792933}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

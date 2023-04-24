@@ -2,6 +2,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
 
 namespace Autovrse
 {
@@ -9,12 +10,14 @@ namespace Autovrse
     {
         [SerializeField] private TextMeshProUGUI _timerValueText;
         [SerializeField] private TextMeshProUGUI _storyText;
-        private Coroutine _timerCoroutine = null;
         [SerializeField] private GameObject _timeInfo;
         [SerializeField] private float _timeInMinute = 3;
+        [SerializeField] private Image _crosshair;
+        private Coroutine _timerCoroutine = null;
         private void Start()
         {
             _timeInfo.SetActive(false);
+            _crosshair.enabled = false;
         }
         private void OnEnable()
         {
@@ -33,6 +36,7 @@ namespace Autovrse
 
         private void StartTimer()
         {
+            _crosshair.enabled = true;
             _timeInfo.SetActive(true);
             _storyText.enabled = false;
             if (_timerCoroutine == null)

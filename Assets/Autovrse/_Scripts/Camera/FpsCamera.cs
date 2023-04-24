@@ -74,8 +74,8 @@ namespace Autovrse
 
             xRotationValue = Mathf.Clamp(xRotationValue, _minAngle, _maxAngle);
 
-            transform.rotation = Quaternion.Euler(xRotationValue, yRotationValue, 0);
-
+            Quaternion newRotation = Quaternion.Euler(xRotationValue, yRotationValue, 0);
+            transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * 10);
             _playerOrientation.rotation = Quaternion.Euler(0, yRotationValue, 0);
             _playerBody.rotation = Quaternion.Euler(0, yRotationValue, 0);
         }
@@ -89,7 +89,8 @@ namespace Autovrse
         {
             if (!_followPlayer)
                 return;
-            transform.position = _playerCameraPosition.position;
+
+            transform.position = Vector3.Lerp(transform.position, _playerCameraPosition.position, Time.deltaTime * 30);
             if (_shakeDuration > 0)
             {
                 transform.localPosition += UnityEngine.Random.insideUnitSphere * ShakeAmount;
